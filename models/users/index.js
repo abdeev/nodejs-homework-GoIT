@@ -3,6 +3,10 @@ const mailRegEx = require("../../helpers/mailRegEx");
 
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+      required: true,
+    },
     password: {
       type: String,
       required: [true, "Set password for user"],
@@ -25,6 +29,14 @@ const userSchema = new Schema(
     token: {
       type: String,
       default: "",
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
     },
   },
   { versionKey: false, timestamps: true }

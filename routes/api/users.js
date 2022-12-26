@@ -4,6 +4,7 @@ const middlewares = require("../../middlewares");
 const schemas = require("../../schemas");
 const controllers = require("../../controllers/users");
 const controllerWrapper = require("../../helpers/controllerWrapper");
+const { schema } = require("../../models/users");
 
 const router = express.Router();
 
@@ -38,6 +39,12 @@ router.patch(
   middlewares.authenticate,
   middlewares.validateBody(schemas.user.updateUserSchema),
   controllerWrapper(controllers.updateSubscribtionUser)
+);
+router.get("/verify/:verificationToken", controllerWrapper(controllers.verify));
+router.post(
+  "/verify",
+  middlewares.validateBody(schemas.user.resendVerificationEmailSchema),
+  controllerWrapper(controllers.resendVerificationEmail)
 );
 
 module.exports = router;
