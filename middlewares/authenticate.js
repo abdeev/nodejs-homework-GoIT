@@ -21,6 +21,12 @@ async function authenticate(req, res, next) {
     if (!user || !user.token || user.token !== token) {
       throw createError({ status: 401, message: "Unauthorized" });
     }
+    if (user.verify) {
+      throw createError({
+        status: 401,
+        message: "User email not verified! Please, verify your email",
+      });
+    }
 
     req.user = user;
 
